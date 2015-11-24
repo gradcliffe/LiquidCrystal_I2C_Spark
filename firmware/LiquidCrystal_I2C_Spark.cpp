@@ -45,9 +45,13 @@ void LiquidCrystal_I2C::init(){
 
 void LiquidCrystal_I2C::init_priv()
 {
-        Wire.setSpeed(CLOCK_SPEED_100KHZ);
-        Wire.stretchClock(true);
-        Wire.begin();
+        
+        // Initialize the I2C bus if not already enabled
+        if ( !Wire.isEnabled() ) {
+            Wire.setSpeed(CLOCK_SPEED_100KHZ);
+            Wire.stretchClock(true);
+            Wire.begin();
+        }
         _displayfunction = LCD_4BITMODE | LCD_1LINE | LCD_5x8DOTS;
         begin(_cols, _rows);
 }
